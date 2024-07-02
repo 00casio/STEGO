@@ -16,7 +16,9 @@
 This is the official implementation of the project "Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation ".
 
 
+### Presentation
 
+You can view the presentation slides [here](https://drive.google.com/uc?export=download&id=1YDqSBr48_8YK1-uAn7-MnZ-prEL5toN2).
 
 ## Install
 
