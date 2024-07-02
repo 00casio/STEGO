@@ -68,12 +68,14 @@ the structure of the dataset should be as follows:
 dataset
 |
 |──potsdam
-      |── imgs
-      |   |──unique_img_name_1.jpg
-      |   └──unique_img_name_2.jpg      
+      |
+      └── imgs
+      |   |──unique_img_name_1.png
+      |   └──unique_img_name_2.png     
       └── gt
       |   |──unique_img_name_1.mat
       |   └──unique_img_name_2.mat
+      |
       └── all.txt
       |
       └── labelled_train.txt
