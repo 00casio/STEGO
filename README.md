@@ -8,22 +8,13 @@
 [Noah Snavely](https://www.cs.cornell.edu/~snavely/),
 [William T. Freeman](https://billf.mit.edu/about/bio)
 
-This is the official implementation of the paper "Unsupervised Semantic Segmentation by Distilling Feature Correspondences".
+This is the official implementation of the project "Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation ".
+## Authors
+
+- **[Hamza Jad Al Aoun](mailto:jadalaou@eurecom.fr)**
+- **[Meriem Driss](mailto:driss@eurecom.fr)**
 
 
-## Contents
-<!--ts-->
-   * [Install](#install)
-   * [Training](#training)
-   * [Reconstruction Of Predicted Vessels](#reconstruction_of_predicted_vessels)
-   * [Understanding STEGO](#understanding-stego)
-      * [Unsupervised Semantic Segmentation](#unsupervised-semantic-segmentation)
-      * [Deep features connect objects across images](#deep-features-connect-objects-across-images)
-      * [The STEGO architecture](#the-stego-architecture)
-      * [Results](#results)
-   * [Citation](#citation)
-   * [Contact](#contact)
-<!--te-->
 
 ## Install
 
@@ -174,4 +165,5 @@ We evaluate the STEGO algorithm on the CocoStuff, Cityscapes, and Potsdam semant
 
 ## Contact
 
-For feedback, questions, or press inquiries please contact [Mark Hamilton](mailto:markth@mit.edu)
+For feedback or questions, please contact jadalaou@eurecom.fr or driss@eurecom.fr
+
