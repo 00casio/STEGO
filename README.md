@@ -59,7 +59,7 @@ If you encounter any errors, you need to check train_config.yml in configs, main
 
 The labels can be changed to .mat with changing their gray scale 255 to 1 with the code fix_label_pixel.py.
 
-Also for our vessels training, we implemented a code that changes black background pixels of brain images to random noise.
+Also for our vessels training, we implemented src/remove_black.py that changes black background pixels of brain images to random noise.
 
 
 Note that gt and imgs should have the same names regardless of their extensions.
