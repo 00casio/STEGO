@@ -101,7 +101,7 @@ Hyperparameters can be adjusted in [`STEGO/src/configs/train_config.yml`](src/co
 To monitor training with tensorboard run the following from `STEGO` directory:
 
 ```shell script
-tensorboard --logdir logs
+tensorboard --logdir ../../output/logs
 ```
 
 ## Reconstruction of Predicted Vessels
