@@ -36,7 +36,6 @@ def create_pascal_label_colormap():
         for channel in range(3):
             colormap[:, channel] |= bit_get(ind, channel) << shift
         ind >>= 3
-
     return colormap
 
 
@@ -71,6 +70,14 @@ def create_cityscapes_colormap():
               (0, 0, 0)]
     return np.array(colors)
 
+def create_vessel_colormap():
+    """Creates a label colormap used for vessel segmentation with two colors: black and white.
+    Returns:
+      A colormap for visualizing segmentation results.
+    """
+    colors = [(0, 0, 0),  # Black
+              (255, 255, 255)]  # White
+    return np.array(colors, dtype=int)
 
 class DirectoryDataset(Dataset):
     def __init__(self, root, path, image_set, transform, target_transform):
@@ -93,15 +100,32 @@ class DirectoryDataset(Dataset):
 
     def __getitem__(self, index):
         image_fn = self.img_files[index]
-        img = Image.open(join(self.img_dir, image_fn))
+        file_path = join(self.img_dir, image_fn)
+
+        if file_path.endswith('.npy'):
+            # If the file has a .npy extension, load it using numpy
+            img = np.load(file_path)
+            img = Image.fromarray(img)
+        else:
+            img = Image.open(join(self.img_dir, image_fn))
 
         if self.label_files is not None:
             label_fn = self.label_files[index]
-            label = Image.open(join(self.label_dir, label_fn))
+            file_path = join(self.label_dir, label_fn)
+            if file_path.endswith('.npy'):
+            # If the file has a .npy extension, load it using numpy
+                label = np.load(file_path)
+                label = Image.fromarray(label)
+                #label = label.convert('RGB')
+
+            else:
+                label = Image.open(join(self.label_dir, label_fn))
+
 
         seed = np.random.randint(2147483647)
         random.seed(seed)
         torch.manual_seed(seed)
+        img = img.convert('RGB')
         img = self.transform(img)
 
         if self.label_files is not None:
@@ -149,10 +173,10 @@ class Potsdam(Dataset):
 
     def __getitem__(self, index):
         image_id = self.files[index]
-        img = loadmat(join(self.root, "imgs", image_id + ".mat"))["img"]
-        img = to_pil_image(torch.from_numpy(img).permute(2, 0, 1)[:3])  # TODO add ir channel back
+        img = Image.open(os.path.join(self.root, "imgs", f"{image_id}.png"))
+        # img = to_pil_image(torch.from_numpy(img).permute(2, 0, 1)[:3])  # TODO add ir channel back
         try:
-            label = loadmat(join(self.root, "gt", image_id + ".mat"))["gt"]
+            label = loadmat(join(self.root, "gt", image_id + ".mat"))["imageData"]
             label = to_pil_image(torch.from_numpy(label).unsqueeze(-1).permute(2, 0, 1))
         except FileNotFoundError:
             label = to_pil_image(torch.ones(1, img.height, img.width))
@@ -445,7 +469,7 @@ class ContrastiveSegDataset(Dataset):
         self.extra_transform = extra_transform
 
         if dataset_name == "potsdam":
-            self.n_classes = 3
+            self.n_classes = 2
             dataset_class = Potsdam
             extra_args = dict(coarse_labels=True)
         elif dataset_name == "potsdamraw":

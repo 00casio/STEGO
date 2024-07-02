@@ -37,9 +37,12 @@ def _random_crops(img, size, seed, n):
 
     if len(size) != 2:
         raise ValueError("Please provide only two dimensions (h, w) for size.")
-
+    if len(img.shape) == 4:
+        img = img[...,0 ]
     image_width, image_height = _get_image_size(img)
+
     crop_height, crop_width = size
+    
     if crop_width > image_width or crop_height > image_height:
         msg = "Requested crop size {} is bigger than input size {}"
         raise ValueError(msg.format(size, (image_height, image_width)))
@@ -60,6 +63,8 @@ def _random_crops(img, size, seed, n):
 class RandomCropComputer(Dataset):
 
     def _get_size(self, img):
+        if len(img.shape) == 4:
+            img = img[...,0 ]
         if len(img.shape) == 3:
             return [int(img.shape[1] * self.crop_ratio), int(img.shape[2] * self.crop_ratio)]
         elif len(img.shape) == 2:
@@ -137,10 +142,14 @@ def my_app(cfg: DictConfig) -> None:
     # crop_types = ["five","random"]
     # crop_ratios = [.5, .7]
 
-    dataset_names = ["cityscapes"]
+    dataset_names = ["potsdam"]
     img_sets = ["train", "val"]
-    crop_types = ["five"]
+    crop_types = ["five","random"]
     crop_ratios = [.5]
+    # dataset_names = ["directory"]
+    # img_sets = ["train", "val"]
+    # crop_types = ["random"]
+    # crop_ratios = [0.5]
 
     for crop_ratio in crop_ratios:
         for crop_type in crop_types:

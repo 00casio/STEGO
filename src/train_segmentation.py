@@ -44,10 +44,38 @@ def get_class_labels(dataset_name):
     elif dataset_name == "potsdam":
         return [
             'roads and cars',
-            'buildings and clutter',
-            'trees and vegetation']
+            'buildings and clutter']
+    elif dataset_name == "directory":
+        return [
+            'vessel',
+            'other']
     else:
         raise ValueError("Unknown Dataset {}".format(dataset_name))
+
+
+class GDiceLoss(torch.nn.Module):
+    def __init__(self, ignore_background=True, weighed=False):
+        super(GDiceLoss, self).__init__()
+        self.ignore_background = ignore_background
+        self.weighed = weighed
+    def forward(self, y_true, y_pred):
+        y_pred =  torch.stack([y_pred, 1 - y_pred], dim=1)
+        assert y_true.shape == y_pred.shape, f"y_true and y_pred must have the same shape {y_true.shape} vs {y_pred.shape}"
+        tp = torch.sum(y_true * y_pred, dim=0)
+        fp = torch.sum(y_true * (1 - y_pred), dim=0)
+        fn = torch.sum((1 - y_true) * y_pred, dim=0)
+        nominator = 2 * tp + 1e-05
+        denominator = 2 * tp + fp + fn + 1e-9
+        if self.ignore_background and y_true.shape[1] > 1:
+            dice_score = 1 - (nominator / (denominator + 1e-9))[1:]
+        else:
+            dice_score = 1 - (nominator / (denominator + 1e-9))
+        if self.weighed:
+            weighed_dice_score = torch.tensor([0.1, 0.9]).cuda()  # Adjust weights as needed
+            dice_score = torch.mean(weighed_dice_score * dice_score)
+        else:
+            dice_score = torch.mean(dice_score)
+        return dice_score
 
 
 class LitUnsupervisedSegmenter(pl.LightningModule):
@@ -86,8 +114,10 @@ class LitUnsupervisedSegmenter(pl.LightningModule):
             "final/cluster/", n_classes, cfg.extra_clusters, True)
         self.test_linear_metrics = UnsupervisedMetrics(
             "final/linear/", n_classes, 0, False)
-
-        self.linear_probe_loss_fn = torch.nn.CrossEntropyLoss()
+        if cfg.loss_type == "cross_entropy":
+            self.linear_probe_loss_fn = torch.nn.CrossEntropyLoss(weight= torch.tensor([1.7, 0.5]))
+        elif cfg.loss_type == "dice":
+            self.linear_probe_loss_fn = GDiceLoss()
         self.crf_loss_fn = ContrastiveCRFLoss(
             cfg.crf_samples, cfg.alpha, cfg.beta, cfg.gamma, cfg.w1, cfg.w2, cfg.shift)
 
@@ -99,6 +129,8 @@ class LitUnsupervisedSegmenter(pl.LightningModule):
 
         if self.cfg.dataset_name.startswith("cityscapes"):
             self.label_cmap = create_cityscapes_colormap()
+        # elif self.cfg.dataset_name.startswith("directory"):
+            # self.label_cmap = create_vessel_colormap()
         else:
             self.label_cmap = create_pascal_label_colormap()
 
@@ -486,8 +518,8 @@ def my_app(cfg: DictConfig) -> None:
         callbacks=[
             ModelCheckpoint(
                 dirpath=join(checkpoint_dir, name),
-                every_n_train_steps=400,
-                save_top_k=2,
+                every_n_train_steps=100,
+                save_top_k=10,
                 monitor="test/cluster/mIoU",
                 mode="max",
             )

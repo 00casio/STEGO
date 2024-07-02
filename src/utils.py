@@ -11,7 +11,8 @@ import torch.nn.functional as F
 import wget
 from PIL import Image
 from scipy.optimize import linear_sum_assignment
-from torch._six import string_classes
+#from torch._six import string_classes
+string_classes = str
 from torch.utils.data import DataLoader
 from torch.utils.data._utils.collate import np_str_obj_array_pattern, default_collate_err_msg_format
 from torchmetrics import Metric
@@ -262,14 +263,15 @@ class UnsupervisedMetrics(Metric):
             self.histogram = self.stats
 
         tp = torch.diag(self.histogram)
+        print(tp)
         fp = torch.sum(self.histogram, dim=0) - tp
         fn = torch.sum(self.histogram, dim=1) - tp
 
         iou = tp / (tp + fp + fn)
         prc = tp / (tp + fn)
         opc = torch.sum(tp) / torch.sum(self.histogram)
-
-        metric_dict = {self.prefix + "mIoU": iou[~torch.isnan(iou)].mean().item(),
+        dice = 2 * tp / (2 * tp + fp + fn)
+        metric_dict = {self.prefix + "mIoU": iou[~torch.isnan(iou)].mean().item(), "DiceCoefficient": dice[~torch.isnan(dice)].mean().item(),
                        self.prefix + "Accuracy": opc.item()}
         return {k: 100 * v for k, v in metric_dict.items()}
 

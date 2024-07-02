@@ -37,12 +37,12 @@ def my_app(cfg: DictConfig) -> None:
     print(cfg.output_root)
 
     image_sets = ["val", "train"]
-    dataset_names = ["cocostuff27", "cityscapes", "potsdam"]
+    dataset_names = ["potsdam"]
     crop_types = ["five", None]
 
     # Uncomment these lines to run on custom datasets
-    #dataset_names = ["directory"]
-    #crop_types = [None]
+    # dataset_names = ["directory"]
+    # crop_types = [None]
 
     res = 224
     n_batches = 16
