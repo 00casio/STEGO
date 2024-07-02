@@ -34,16 +34,16 @@ cd STEGO
 ```
 
 ### Install Conda Environment
-Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed
+Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed.
  
-somtimes conda is heavy to be installed on linux so an alternative is to install miniconda it could be installed from [Moniconda](https://docs.anaconda.com/miniconda/miniconda-install/)
+Conda might be heavy to be installed on linux so an alternative is to install miniconda from [Moniconda](https://docs.anaconda.com/miniconda/miniconda-install/)
 
-to setup the environment please run the following commands
+To setup the environment you need to run the following commands:
 ```shell script
 conda env create -f environment.yml
 conda activate stego
 ```
-if its the case where conda is not known as an internal command, its better to access conda from its files where its installed as follows 
+If it is the case where conda is not known as an internal command, it is better to access conda from its files where its installed as follows 
 ```
 source ~/miniconda3/bin/activate stego1
 ```
@@ -105,6 +105,38 @@ tensorboard --logdir ../../output/logs
 ```
 
 ## Reconstruction of Predicted Vessels
+
+This section details the **Volume Reconstruction** process using a pre-trained Stego model. The goal is to reconstruct 3D volumes and evaluate segmentation performance with metrics like Dice and clDice.
+#### 1. Data Preparation
+- Load the test dataset and its corresponding labels.
+- Ensure the number of input files matches the number of label files.
+- Apply necessary preprocessing steps like skull stripping and standardization.
+#### 2. Model Initialization
+- Initialize the Stego model with a checkpoint file "/path/to/checkpoint.ckpt"
+
+#### 3. Prediction
+
+For each volume:
+- Load the volume and iterate over each slice.
+- Extract patches from the slice and preprocess them:
+- Use the Stego model to predict the segmentation for each patch:
+- Apply any necessary post-processing steps, such as thresholding, to the predicted patches.
+
+#### 4. Reconstruction
+Reconstruct the entire volume from the predicted slices:
+Assemble the predicted slices into a 3D volume.
+Save the reconstructed volume for further analysis and visualization.
+
+#### 5. Evaluation
+Compute evaluation metrics for the reconstructed volumes:
+Dice Score: Measures overlap between predicted and ground truth labels.
+clDice Score: Measures the similarity between the predicted and ground truth binary masks.
+The results are saved in a text file, typically named evaluation_results.txt, which contains metrics for each dataset configuration.
+
+#### Example usage:
+```bash
+python volume_reconstruction.py --dataset_name <DATASET_NAME> --n_size <SIZE> --current_seed <SEED>
+```
 ## Understanding STEGO
 
 ### Unsupervised semantic segmentation
