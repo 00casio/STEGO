@@ -15,7 +15,7 @@ This is the official implementation of the paper "Unsupervised Semantic Segmenta
 <!--ts-->
    * [Install](#install)
    * [Training](#training)
-      * [Bringing your own data](#bringing-your-own-data)
+      * [reconstruction of medical images](#reconstruction_of_predicted_vessels)
    * [Understanding STEGO](#understanding-stego)
       * [Unsupervised Semantic Segmentation](#unsupervised-semantic-segmentation)
       * [Deep features connect objects across images](#deep-features-connect-objects-across-images)
@@ -101,6 +101,8 @@ To monitor training with tensorboard run the following from `STEGO` directory:
 ```shell script
 tensorboard --logdir logs
 ```
+
+## Reconstruction of Predicted Vessels
 ## Understanding STEGO
 
 ### Unsupervised semantic segmentation
