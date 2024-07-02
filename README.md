@@ -34,16 +34,16 @@ cd STEGO
 ```
 
 ### Install Conda Environment
-Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed
+Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed.
  
-somtimes conda is heavy to be installed on linux so an alternative is to install miniconda it could be installed from [Moniconda](https://docs.anaconda.com/miniconda/miniconda-install/)
+Conda might be heavy to be installed on linux so an alternative is to install miniconda from [Moniconda](https://docs.anaconda.com/miniconda/miniconda-install/)
 
-to setup the environment please run the following commands
+To setup the environment you need to run the following commands:
 ```shell script
 conda env create -f environment.yml
 conda activate stego
 ```
-if its the case where conda is not known as an internal command, its better to access conda from its files where its installed as follows 
+If it is the case where conda is not known as an internal command, it is better to access conda from its files where its installed as follows 
 ```
 source ~/miniconda3/bin/activate stego1
 ```
