@@ -15,7 +15,7 @@ This is the official implementation of the paper "Unsupervised Semantic Segmenta
 <!--ts-->
    * [Install](#install)
    * [Training](#training)
-      * [reconstruction of medical images](#reconstruction_of_predicted_vessels)
+   * [reconstruction of predicted vessels](#reconstruction_of_predicted_vessels)
    * [Understanding STEGO](#understanding-stego)
       * [Unsupervised Semantic Segmentation](#unsupervised-semantic-segmentation)
       * [Deep features connect objects across images](#deep-features-connect-objects-across-images)
