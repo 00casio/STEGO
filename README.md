@@ -55,16 +55,20 @@ python download_models.py
 ## Training
 
 To train STEGO from scratch, put the dataset in the dataset folder, name the dataset as potsdam and make sure that it has two folders, one named gt and one named imgs with 3 txt files, first one is all.txt having all the images names without their extensions, labelled_test.txt having the name of the testing (validation) images, labelled_train.txt having the training images, and unlabelled_train.txt this could be empty.
-If you encounter any errors, you need to check train_config.yml in configs.
+If you encounter any errors, you need to check train_config.yml in configs, mainly the pytorch_data_dir where it should be replaced by the dataset folder
 
 The labels can be changed to .mat with changing their gray scale 255 to 1 with the code fix_label_pixel.py.
+
+Also for our vessels training, we implemented a code that changes black background pixels of brain images to random noise.
+
+
 Note that gt and imgs should have the same names regardless of their extensions.
 The structure of the dataset should be as follows:
 
 ```
 dataset
 |
-|──potsdam
+└──potsdam
       |
       └── imgs
       |   |──unique_img_name_1.png
@@ -83,11 +87,13 @@ dataset
    
 
 ```
+We added a dataset directory having a demo dataset that one can follow its form, if the code is tested on the provided dataset it will output errors as its very small(3 images).
 
 ```shell script
 python crop_datasets.py
 python precompute_knns.py
 ```
+
 
 Then you can run the following in `STEGO/src`:
 ```shell script
