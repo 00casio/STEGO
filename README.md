@@ -148,8 +148,9 @@ Real-world images can be cluttered with multiple objects making classification f
 ### Deep features connect objects across images
 Self-supervised contrastive learning enables algorithms to learn intelligent representations for images without supervision. STEGO builds on this work by showing that representations from self-supervised visual transformers like  Caron et. al.’s  DINO are already aware of the relationships between objects. By computing the cosine similarity between image features, we can see that similar semantic regions such as grass, motorcycles, and sky are “linked” together by feature similarity.
 
-![Feature connection GIF](results/correspondence/attention_interp.mp4)
+![Feature connection GIF](https://mhamilton.net/images/Picture3.gif)
 
+to visualise the correspondance in our study:
 <video controls>
   <source src="results/correspondence/attention_interp.mp4" type="video/mp4">
   Your browser does not support the video tag.
