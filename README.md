@@ -1,4 +1,9 @@
-# STEGO: Unsupervised Semantic Segmentation by Distilling Feature Correspondences
+#Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation
+### Authors
+
+- **[Hamza Jad Al Aoun](mailto:jadalaou@eurecom.fr)**
+- **[Meriem Driss](mailto:driss@eurecom.fr)**
+## STEGO: Unsupervised Semantic Segmentation by Distilling Feature Correspondences
 ### [Project Page](https://mhamilton.net/stego.html) | [Paper](https://arxiv.org/abs/2203.08414) | [Video](https://aka.ms/stego-video) | [ICLR 2022](https://iclr.cc/virtual/2022/poster/6068) 
 
 	
@@ -9,10 +14,7 @@
 [William T. Freeman](https://billf.mit.edu/about/bio)
 
 This is the official implementation of the project "Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation ".
-## Authors
 
-- **[Hamza Jad Al Aoun](mailto:jadalaou@eurecom.fr)**
-- **[Meriem Driss](mailto:driss@eurecom.fr)**
 
 
 
