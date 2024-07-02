@@ -65,7 +65,7 @@ Also for our vessels training, we implemented a code that changes black backgrou
 Note that gt and imgs should have the same names regardless of their extensions.
 The structure of the dataset should be as follows:
 
-```
+```shell
 dataset
 |
 └──potsdam
@@ -150,11 +150,10 @@ Self-supervised contrastive learning enables algorithms to learn intelligent rep
 
 ![Feature connection GIF](https://mhamilton.net/images/Picture3.gif)
 
-to visualise the correspondance in our study:
-<video controls>
-  <source src="results/correspondence/attention_interp.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+To visualise the correspondance in our study its found in 
+```bash
+results/correspondence/attention_interp.mp4
+```
 
 
 ### The STEGO architecture
