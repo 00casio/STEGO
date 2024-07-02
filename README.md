@@ -1,4 +1,4 @@
-#Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation
+# Analysis of Unsupervised Learning Techniques for Cerebrovascular Image Segmentation
 ### Authors
 
 - **[Hamza Jad Al Aoun](mailto:jadalaou@eurecom.fr)**
