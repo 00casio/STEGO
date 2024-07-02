@@ -14,7 +14,6 @@ This is the official implementation of the paper "Unsupervised Semantic Segmenta
 ## Contents
 <!--ts-->
    * [Install](#install)
-   * [Evaluation](#evaluation)
    * [Training](#training)
       * [Bringing your own data](#bringing-your-own-data)
    * [Understanding STEGO](#understanding-stego)
@@ -36,11 +35,19 @@ cd STEGO
 
 ### Install Conda Environment
 Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed
+ 
+somtimes conda is heavy to be installed on linux so an alternative is to install miniconda it could be installed from [Moniconda](https://docs.anaconda.com/miniconda/miniconda-install/)
 
+to setup the environment please run the following commands
 ```shell script
 conda env create -f environment.yml
 conda activate stego
 ```
+if its the case where conda is not known as an internal command, its better to access conda from its files where its installed as follows 
+```
+source ~/miniconda3/bin/activate stego1
+```
+
 
 ### Download Pre-Trained Models
 
@@ -53,6 +60,30 @@ python download_models.py
 To train STEGO from scratch, put the data set in the dataset folder, name the dataset as potsdam, make sure that the data set has two folder, one named gt and one named imgs with 3 txt files, first one is all.txt having all the images names without their extensions, labelled_test.txt having the name of the testing(validation) images, labelled_train.txt having the training images, and unlabelled_train.txt this could be empty.
 if any errors encountered it could be from the path of the dataset, you can check train_config.yml in configs
 
+the labels can be changed to .mat with changing their gray scale 255 to 1 with the code fix_label_pixel.py
+remark that gt and imgs should have the same names regardless their extension.
+the structure of the dataset should be as follows:
+
+```
+dataset
+|
+|──potsdam
+      |── imgs
+      |   |──unique_img_name_1.jpg
+      |   └──unique_img_name_2.jpg      
+      └── gt
+      |   |──unique_img_name_1.mat
+      |   └──unique_img_name_2.mat
+      └── all.txt
+      |
+      └── labelled_train.txt
+      |
+      └── labelled_test.txt
+      |
+      └── unlabelled_train.txt 
+   
+
+```
 
 ```shell script
 python crop_datasets.py
@@ -70,47 +101,6 @@ To monitor training with tensorboard run the following from `STEGO` directory:
 ```shell script
 tensorboard --logdir logs
 ```
-
-### Bringing your own data
-
-To train STEGO on your own dataset please create a directory in your pytorch data root with the following structure. Note, if you do not have labels, omit the `labels` directory from the structure:
-
-```
-dataset_name
-|── imgs
-|   ├── train
-|   |   |── unique_img_name_1.jpg
-|   |   └── unique_img_name_2.jpg
-|   └── val
-|       |── unique_img_name_3.jpg
-|       └── unique_img_name_4.jpg
-└── labels
-    ├── train
-    |   |── unique_img_name_1.png
-    |   └── unique_img_name_2.png
-    └── val
-        |── unique_img_name_3.png
-        └── unique_img_name_4.png
-```
-
-Next in [`STEGO/src/configs/train_config.yml`](src/configs/train_config.yml) set the following parameters:
-
-```yaml
-dataset_name: "directory"
-dir_dataset_name: "dataset_name"
-dir_dataset_n_classes: 5 # This is the number of object types to find
-```
-
-If you want to train with cropping to increase spatial resolution run our [cropping utility](src/crop_datasets.py).
-
-Finally, uncomment the custom dataset code and run `python precompute_knns.py`
- from `STEGO\src` to generate the prerequisite KNN information for the custom dataset.
- 
-You can now train on your custom dataset using:
-```shell script
-python train_segmentation.py
-```
-
 ## Understanding STEGO
 
 ### Unsupervised semantic segmentation
