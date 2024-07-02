@@ -11,14 +11,6 @@
 This is the official implementation of the paper "Unsupervised Semantic Segmentation by Distilling Feature Correspondences".
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mhamilton723/STEGO/blob/master/src/STEGO_Colab_Demo.ipynb) \
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/unsupervised-semantic-segmentation-by-2/unsupervised-semantic-segmentation-on)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on?p=unsupervised-semantic-segmentation-by-2)\
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/unsupervised-semantic-segmentation-by-2/unsupervised-semantic-segmentation-on-coco-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-coco-4?p=unsupervised-semantic-segmentation-by-2) \
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/unsupervised-semantic-segmentation-by-2/unsupervised-semantic-segmentation-on-potsdam-1)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-potsdam-1?p=unsupervised-semantic-segmentation-by-2)
-
-
-[![Overview Video](https://marhamilresearch4.blob.core.windows.net/stego-public/graphics/STEGO%20Header%20video%20(2).jpg)](https://youtu.be/NPub4E4o8BA)
-
 ## Contents
 <!--ts-->
    * [Install](#install)
@@ -38,7 +30,7 @@ This is the official implementation of the paper "Unsupervised Semantic Segmenta
 
 ### Clone this repository:
 ```shell script
-git clone https://github.com/mhamilton723/STEGO.git
+git clone https://github.com/00casio/STEGO
 cd STEGO
 ```
 
@@ -56,38 +48,11 @@ conda activate stego
 cd src
 python download_models.py
 ```
-
-### Download Datasets
-
-First, change the `pytorch_data_dir` variable to your 
-systems pytorch data directory where datasets are stored. 
-
-```shell script
-python download_datasets.py
-```
-
-Once downloaded please navigate to your pytorch data dir and unzip the resulting files:
-
-```shell script
-cd /YOUR/PYTORCH/DATA/DIR
-unzip cocostuff.zip
-unzip cityscapes.zip
-unzip potsdam.zip
-unzip potsdamraw.zip
-```
-
-
-## Evaluation
-
-To evaluate our pretrained models please run the following in `STEGO/src`:
-```shell script
-python eval_segmentation.py
-```
-One can change the evaluation parameters and model by editing [`STEGO/src/configs/eval_config.yml`](src/configs/eval_config.yml)
-
 ## Training
 
-To train STEGO from scratch, please first generate the KNN indices for the datasets of interest. Note that this requires generating a cropped dataset first, and you may need to modify `crop datasets.py` to specify the dataset that you are cropping:
+To train STEGO from scratch, put the data set in the dataset folder, name the dataset as potsdam, make sure that the data set has two folder, one named gt and one named imgs with 3 txt files, first one is all.txt having all the images names without their extensions, labelled_test.txt having the name of the testing(validation) images, labelled_train.txt having the training images, and unlabelled_train.txt this could be empty.
+if any errors encountered it could be from the path of the dataset, you can check train_config.yml in configs
+
 
 ```shell script
 python crop_datasets.py
