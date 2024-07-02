@@ -121,7 +121,7 @@ For each volume:
 - Extract patches from the slice and preprocess them:
 - Use the Stego model to predict the segmentation for each patch:
 - Apply any necessary post-processing steps, such as thresholding, to the predicted patches.
-- 
+
 #### 4. Reconstruction
 Reconstruct the entire volume from the predicted slices:
 Assemble the predicted slices into a 3D volume.
