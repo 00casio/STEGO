@@ -57,12 +57,12 @@ python download_models.py
 ```
 ## Training
 
-To train STEGO from scratch, put the data set in the dataset folder, name the dataset as potsdam, make sure that the data set has two folder, one named gt and one named imgs with 3 txt files, first one is all.txt having all the images names without their extensions, labelled_test.txt having the name of the testing(validation) images, labelled_train.txt having the training images, and unlabelled_train.txt this could be empty.
-if any errors encountered it could be from the path of the dataset, you can check train_config.yml in configs
+To train STEGO from scratch, put the dataset in the dataset folder, name the dataset as potsdam and make sure that it has two folders, one named gt and one named imgs with 3 txt files, first one is all.txt having all the images names without their extensions, labelled_test.txt having the name of the testing (validation) images, labelled_train.txt having the training images, and unlabelled_train.txt this could be empty.
+If you encounter any errors, you need to check train_config.yml in configs.
 
-the labels can be changed to .mat with changing their gray scale 255 to 1 with the code fix_label_pixel.py
-remark that gt and imgs should have the same names regardless their extension.
-the structure of the dataset should be as follows:
+The labels can be changed to .mat with changing their gray scale 255 to 1 with the code fix_label_pixel.py.
+Note that gt and imgs should have the same names regardless of their extensions.
+The structure of the dataset should be as follows:
 
 ```
 dataset
