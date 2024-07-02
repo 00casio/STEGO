@@ -44,7 +44,7 @@ If it is the case where conda is not known as an internal command, it is better 
 source ~/miniconda3/bin/activate stego1
 
 ```
-
+if some of the dependencies were not installed correctly when creating the conda env, the user should install them manually after activating the environment with the right version found in environment.yml
 
 ### Download Pre-Trained Models
 
