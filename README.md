@@ -40,7 +40,9 @@ conda activate stego
 ```
 If it is the case where conda is not known as an internal command, it is better to access conda from its files where its installed as follows 
 ```
+~/miniconda3/bin/conda env create -f environment.yml
 source ~/miniconda3/bin/activate stego1
+
 ```
 
 
