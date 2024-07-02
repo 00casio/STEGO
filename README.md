@@ -105,6 +105,48 @@ tensorboard --logdir ../../output/logs
 ```
 
 ## Reconstruction of Predicted Vessels
+## Volume Reconstruction with Stego
+
+This section details the **Volume Reconstruction** process using a pre-trained Stego model. The goal is to reconstruct 3D volumes and evaluate segmentation performance with metrics like Dice and clDice.
+#### 1. Data Preparation
+
+- Load the test dataset and its corresponding labels.
+- Ensure the number of input files matches the number of label files.
+- Apply necessary preprocessing steps like skull stripping and standardization.
+
+#### 2. Model Initialization
+
+- Initialize the Stego model with a checkpoint file.
+
+model_path = "/path/to/checkpoint.ckpt"
+
+#### 3. Prediction
+
+For each volume:
+- Load the volume and iterate over each slice.
+- Extract patches from the slice and preprocess them:
+- Use the Stego model to predict the segmentation for each patch:
+- Apply any necessary post-processing steps, such as thresholding, to the predicted patches.
+#### 4. Reconstruction
+Reconstruct the entire volume from the predicted slices:
+Assemble the predicted slices into a 3D volume.
+Save the reconstructed volume for further analysis and visualization.
+#### 5. Evaluation
+Compute evaluation metrics for the reconstructed volumes:
+Dice Score: Measures overlap between predicted and ground truth labels.
+clDice Score: Measures the similarity between the predicted and ground truth binary masks.
+Results and Metrics
+The results include:
+
+Dice Score: A statistical measure of the overlap between predicted and true segmentation.
+clDice Score: Measures the contour-based agreement between predicted and ground truth masks.
+Average and standard deviation for each metric across all slices.
+The results are saved in a text file, typically named evaluation_results.txt, which contains metrics for each dataset configuration.
+
+#### Example usage:
+```bash
+python volume_reconstruction.py --dataset_name <DATASET_NAME> --n_size <SIZE> --current_seed <SEED>
+```
 ## Understanding STEGO
 
 ### Unsupervised semantic segmentation
