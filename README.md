@@ -106,7 +106,7 @@ To monitor training with tensorboard run the following from `STEGO` directory:
 ```shell script
 tensorboard --logdir ../../output/logs
 ```
-
+after training checkpoints will be saved in output/checkpoints.
 ## Reconstruction of Predicted Vessels
 
 This section details the **Volume Reconstruction** process using a pre-trained Stego model. The goal is to reconstruct 3D volumes and evaluate segmentation performance with metrics like Dice and clDice.
@@ -149,6 +149,11 @@ Real-world images can be cluttered with multiple objects making classification f
 Self-supervised contrastive learning enables algorithms to learn intelligent representations for images without supervision. STEGO builds on this work by showing that representations from self-supervised visual transformers like  Caron et. al.’s  DINO are already aware of the relationships between objects. By computing the cosine similarity between image features, we can see that similar semantic regions such as grass, motorcycles, and sky are “linked” together by feature similarity.
 
 ![Feature connection GIF](https://mhamilton.net/images/Picture3.gif)
+
+<video controls>
+  <source src="results/correspondence/attention_interp.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
 ### The STEGO architecture
